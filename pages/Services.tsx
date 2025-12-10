@@ -17,43 +17,50 @@ const SECTIONS: ServiceSection[] = [
     title: "Haircuts & Beards",
     subtitle: "Precision cutting tailored to your unique face shape.",
     categories: [ServiceCategory.HAIRCUT, ServiceCategory.BEARD, ServiceCategory.SHAVE],
+    // Image: Haircut scissors
     image: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=2070&auto=format&fit=crop"
   },
   {
     title: "Styling & Finish",
     subtitle: "The final touches that set you apart.",
     categories: [ServiceCategory.STYLING],
+    // Image: Barber products
     image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2069&auto=format&fit=crop"
   },
   {
     title: "Manicure & Pedicure",
     subtitle: "Essential care for hands and feet.",
     categories: [ServiceCategory.MANICURE],
+    // Image: Manicure
     image: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=2070&auto=format&fit=crop"
   },
   {
     title: "Facial & Skincare",
     subtitle: "Rejuvenating treatments for the modern man.",
     categories: [ServiceCategory.FACIAL],
+    // Image: Facial
     image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop"
   },
   {
     title: "Waxing Services",
     subtitle: "Professional hair removal for a clean look.",
     categories: [ServiceCategory.WAXING],
-    image: "https://images.unsplash.com/photo-1595867990428-1b03372c0576?q=80&w=2070&auto=format&fit=crop"
+    // Image: Waxing/Brows
+    image: "https://images.unsplash.com/photo-1672642150262-6edcbffa463e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFpciUyMHdheGluZyUyMG1lbnxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     title: "Hair Treatments",
     subtitle: "Scalp health and color blending.",
     categories: [ServiceCategory.TREATMENT],
-    image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=1000&auto=format&fit=crop"
+    // Image: Hair wash
+    image: "https://images.unsplash.com/photo-1693591936914-14645081663a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGFpciUyMHRyZWF0bWVudCUyMG1lbnxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     title: "Signature Packages",
     subtitle: "Curated experiences for special occasions.",
     categories: [ServiceCategory.GROOM, ServiceCategory.EVENT],
-    image: "https://images.unsplash.com/photo-1507081323647-4d250478b919?q=80&w=2064&auto=format&fit=crop"
+    // Image: Groom
+    image: "https://images.unsplash.com/photo-1591828208865-52047fa4054c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ];
 
@@ -64,6 +71,7 @@ const Services: React.FC = () => {
       <div className="relative py-32 px-6 text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
              <div className="absolute inset-0 bg-navy-950/90 z-10"></div>
+             {/* Image: Barber Shop background */}
              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" className="w-full h-full object-cover" alt="Services Hero" />
         </div>
         <div className="relative z-20 max-w-4xl mx-auto">

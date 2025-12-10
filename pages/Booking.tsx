@@ -89,7 +89,7 @@ const Booking: React.FC = () => {
         );
       case 1:
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {BARBERS.map((barber) => (
               <div 
                 key={barber.id}
@@ -126,7 +126,7 @@ const Booking: React.FC = () => {
               {loadingSlots ? (
                 <div className="text-gold-500 text-sm animate-pulse">Checking availability...</div>
               ) : (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {availableSlots.map((slot) => (
                     <button
                       key={slot}
@@ -206,29 +206,31 @@ const Booking: React.FC = () => {
     <div className="pt-32 pb-20 min-h-screen">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-display font-bold text-white">Book Appointment</h1>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white">Book Appointment</h1>
         </div>
 
         <div className="glass-card rounded-2xl p-6 md:p-10">
           {/* Progress Bar */}
-          <div className="flex justify-between items-center mb-12 relative">
-            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -z-10"></div>
-            {steps.map((step, index) => (
-              <div key={step} className="flex flex-col items-center gap-2 bg-navy-950 px-2 z-10">
-                <div 
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors ${
-                    index <= currentStep 
-                      ? 'bg-gold-500 border-gold-500 text-navy-950' 
-                      : 'bg-navy-900 border-gray-700 text-gray-500'
-                  }`}
-                >
-                  {index + 1}
-                </div>
-                <span className={`text-xs uppercase tracking-wider ${index <= currentStep ? 'text-gold-500' : 'text-gray-600'}`}>
-                  {step}
-                </span>
-              </div>
-            ))}
+          <div className="mb-12 relative overflow-x-auto pb-4 md:pb-0">
+             <div className="flex justify-between items-center min-w-[300px] relative">
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -z-10"></div>
+                {steps.map((step, index) => (
+                  <div key={step} className="flex flex-col items-center gap-2 bg-navy-950 px-2 z-10">
+                    <div 
+                      className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-bold border-2 transition-colors ${
+                        index <= currentStep 
+                          ? 'bg-gold-500 border-gold-500 text-navy-950' 
+                          : 'bg-navy-900 border-gray-700 text-gray-500'
+                      }`}
+                    >
+                      {index + 1}
+                    </div>
+                    <span className={`text-[10px] md:text-xs uppercase tracking-wider ${index <= currentStep ? 'text-gold-500' : 'text-gray-600'}`}>
+                      {step}
+                    </span>
+                  </div>
+                ))}
+             </div>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -246,13 +248,13 @@ const Booking: React.FC = () => {
               </AnimatePresence>
             </div>
 
-            <div className="flex justify-between mt-12 pt-6 border-t border-white/5">
+            <div className="flex flex-col-reverse sm:flex-row justify-between mt-12 pt-6 border-t border-white/5 gap-4">
               <button 
                 type="button"
                 onClick={handleBack}
                 disabled={currentStep === 0}
-                className={`flex items-center gap-2 px-6 py-3 rounded font-bold uppercase text-sm ${
-                  currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-gray-400 hover:text-white'
+                className={`flex items-center justify-center gap-2 px-6 py-3 rounded font-bold uppercase text-sm ${
+                  currentStep === 0 ? 'hidden' : 'text-gray-400 hover:text-white border border-white/10 hover:border-white'
                 }`}
               >
                 <ChevronLeft size={16} /> Back
@@ -262,7 +264,7 @@ const Booking: React.FC = () => {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center gap-2 bg-gold-500 hover:bg-white text-navy-950 px-8 py-3 rounded font-bold uppercase text-sm transition-all"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-white text-navy-950 px-8 py-3 rounded font-bold uppercase text-sm transition-all shadow-lg"
                 >
                   {isSubmitting ? 'Confirming...' : 'Confirm Booking'}
                 </button>
@@ -276,7 +278,7 @@ const Booking: React.FC = () => {
                     (currentStep === 1 && !formData.barberId) ||
                     (currentStep === 2 && !formData.time)
                   }
-                  className="flex items-center gap-2 bg-white hover:bg-gold-500 text-navy-950 px-8 py-3 rounded font-bold uppercase text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-gold-500 text-navy-950 px-8 py-3 rounded font-bold uppercase text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed ml-auto"
                 >
                   Next Step <ChevronRight size={16} />
                 </button>

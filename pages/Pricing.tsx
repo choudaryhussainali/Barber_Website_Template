@@ -11,7 +11,7 @@ const Pricing: React.FC = () => {
   return (
     <div className="pt-20">
       <div className="bg-navy-900 py-20 px-6 text-center">
-        <h1 className="text-5xl font-display font-bold text-white mb-4">Price List</h1>
+        <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Price List</h1>
         <p className="text-gray-400 max-w-2xl mx-auto">
           Transparent pricing for premium services. No hidden costs.
         </p>
@@ -28,16 +28,14 @@ const Pricing: React.FC = () => {
                 <h2 className="text-2xl font-bold text-gold-500 mb-8 pb-4 border-b border-white/10">{cat}</h2>
                 <div className="grid gap-8">
                   {catServices.map((service) => (
-                    <div key={service.id} className="flex justify-between items-end group">
-                      <div className="flex-grow">
-                        <div className="flex items-baseline justify-between mb-1 relative">
-                          <h3 className="text-xl font-bold text-white bg-navy-900 pr-4 z-10 relative">{service.title}</h3>
-                          {/* Dotted line connector */}
-                          <div className="absolute w-full bottom-1 border-b-2 border-dotted border-gray-700"></div>
-                          <span className="text-2xl font-mono text-white bg-navy-900 pl-4 z-10 relative">${service.price}</span>
-                        </div>
-                        <p className="text-gray-500 text-sm">{service.description} • {service.duration} min</p>
+                    <div key={service.id} className="group">
+                      <div className="flex items-end mb-2">
+                          <h3 className="text-lg md:text-xl font-bold text-white relative z-10 shrink-0 mr-4">{service.title}</h3>
+                          {/* Flex grow container for the line */}
+                          <div className="flex-grow border-b-2 border-dotted border-gray-700/50 mb-2 relative z-0"></div>
+                          <span className="text-xl md:text-2xl font-mono text-white relative z-10 shrink-0 ml-4">${service.price}</span>
                       </div>
+                      <p className="text-gray-500 text-sm max-w-lg">{service.description} • {service.duration} min</p>
                     </div>
                   ))}
                 </div>
@@ -47,12 +45,12 @@ const Pricing: React.FC = () => {
         </div>
         
         <div className="mt-20 text-center">
-            <div className="glass-card p-8 inline-block rounded-xl">
+            <div className="glass-card p-8 inline-block rounded-xl max-w-xl w-full">
                 <h3 className="text-2xl font-bold text-white mb-2">Ready to look your best?</h3>
                 <p className="text-gray-400 mb-6">Appointments fill up fast. Secure your slot today.</p>
                 <Link 
                     to="/booking"
-                    className="px-8 py-3 bg-gold-500 text-navy-950 font-bold uppercase tracking-wider text-sm rounded hover:bg-white transition-colors"
+                    className="inline-block px-8 py-3 bg-gold-500 text-navy-950 font-bold uppercase tracking-wider text-sm rounded hover:bg-white transition-colors shadow-lg"
                 >
                     Book an Appointment
                 </Link>

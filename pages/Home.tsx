@@ -9,25 +9,29 @@ const SERVICE_CATEGORIES = [
   {
     title: 'Haircuts',
     desc: 'Precision cuts tailored to your unique face shape and style.',
-    image: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=2070&auto=format&fit=crop',
+    // Image: Man haircut profile
+    image: 'https://images.unsplash.com/photo-1647140655214-e4a2d914971f?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     link: '/services'
   },
   {
     title: 'Shaving',
     desc: 'Traditional hot towel straight razor shaves for ultimate smoothness.',
-    image: 'https://images.unsplash.com/photo-1536548665151-575696808e5e?q=80&w=2070&auto=format&fit=crop',
+    // Image: Shaving
+    image: 'https://images.unsplash.com/photo-1733995471058-3d6ff2013de3?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     link: '/services'
   },
   {
     title: 'Trimming',
     desc: 'Expert beard sculpting, lining, and maintenance.',
+    // Image: Beard trim
     image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=1000&auto=format&fit=crop',
     link: '/services'
   },
   {
     title: 'Styling',
     desc: 'Premium styling with top-shelf products for a lasting look.',
-    image: 'https://images.unsplash.com/photo-1519699047748-40ba52c79303?q=80&w=2070&auto=format&fit=crop',
+    // Image: Hair styling
+    image: 'https://images.unsplash.com/photo-1590540179937-484393bfd879?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     link: '/services'
   }
 ];
@@ -36,9 +40,12 @@ const SERVICE_CATEGORIES = [
 // MAIN SLIDER IMAGES
 // ============================================
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1521119989659-a83eee488058?q=80&w=2070&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070&auto=format&fit=crop", 
-  "https://images.unsplash.com/photo-1503951914290-934c483298f6?q=80&w=2070&auto=format&fit=crop" 
+  // 1. Barber Shop Interior
+  "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+  // 2. Barber Tools
+  "https://images.unsplash.com/photo-1596728325488-58c87691e9af?q=80&w=873&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+  // 3. Vintage Chair
+  "https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
 ];
 
 const Home: React.FC = () => {
@@ -86,7 +93,7 @@ const Home: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        {/* Static Overlay - Ensures text readability regardless of image brightness */}
+        {/* Static Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/40 z-10" />
 
         {/* Content */}
@@ -95,7 +102,7 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-gold-500 uppercase tracking-[0.3em] text-sm font-bold mb-6"
+            className="text-gold-500 uppercase tracking-[0.3em] text-xs md:text-sm font-bold mb-6"
           >
             Est. 2024 • Premium Grooming
           </motion.p>
@@ -103,7 +110,7 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-8 leading-tight drop-shadow-2xl"
+            className="text-4xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-8 leading-tight drop-shadow-2xl"
           >
             Refine Your <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">Image</span>
@@ -116,13 +123,13 @@ const Home: React.FC = () => {
           >
             <Link 
               to="/booking"
-              className="px-8 py-4 bg-gold-500 hover:bg-white text-navy-950 font-bold uppercase tracking-wider text-sm rounded transition-all duration-300 min-w-[200px] shadow-lg hover:shadow-gold-500/20"
+              className="w-full md:w-auto px-8 py-4 bg-gold-500 hover:bg-white text-navy-950 font-bold uppercase tracking-wider text-sm rounded transition-all duration-300 min-w-[200px] shadow-lg hover:shadow-gold-500/20"
             >
               Book Appointment
             </Link>
             <Link 
               to="/services"
-              className="px-8 py-4 border border-white/20 hover:border-gold-500 text-white hover:text-gold-500 font-bold uppercase tracking-wider text-sm rounded transition-all duration-300 min-w-[200px] backdrop-blur-sm"
+              className="w-full md:w-auto px-8 py-4 border border-white/20 hover:border-gold-500 text-white hover:text-gold-500 font-bold uppercase tracking-wider text-sm rounded transition-all duration-300 min-w-[200px] backdrop-blur-sm"
             >
               View Services
             </Link>
@@ -142,16 +149,16 @@ const Home: React.FC = () => {
       </div>
 
       {/* Why Choose Us */}
-      <Section className="relative">
+      <Section className="relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
+          <div className="order-2 lg:order-1">
             <h2 className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-4">Why Choose Us</h2>
             <h3 className="text-4xl font-display font-bold text-white mb-6">More Than Just a Haircut</h3>
             <p className="text-gray-400 leading-relaxed mb-8">
               We believe grooming is an essential part of a man's character. Our master barbers combine traditional techniques with modern styling to create a look that is uniquely yours.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { icon: Star, title: "Master Barbers", desc: "Highly trained professionals" },
                 { icon: Clock, title: "Precision", desc: "Detailed oriented styling" },
@@ -170,10 +177,11 @@ const Home: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="relative">
-            <div className="absolute -inset-4 border-2 border-gold-500/20 rounded-lg translate-x-4 translate-y-4 z-0"></div>
+          <div className="relative order-1 lg:order-2">
+            <div className="absolute -inset-4 border-2 border-gold-500/20 rounded-lg translate-x-4 translate-y-4 z-0 hidden md:block"></div>
+            {/* Image: Barber cutting hair */}
             <img 
-              src="https://images.unsplash.com/photo-1534393479244-7cf698096f30?q=80&w=1000&auto=format&fit=crop" 
+              src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=1000&auto=format&fit=crop" 
               alt="Barber Working" 
               className="rounded-lg shadow-2xl relative z-10 w-full"
             />
@@ -181,7 +189,7 @@ const Home: React.FC = () => {
         </div>
       </Section>
 
-      {/* Service Categories (New Section) */}
+      {/* Service Categories */}
       <Section darker>
         <div className="text-center mb-16">
           <h2 className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-4">Expertise</h2>
@@ -191,17 +199,12 @@ const Home: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SERVICE_CATEGORIES.map((cat, index) => (
             <div key={index} className="group relative h-[450px] rounded-xl overflow-hidden cursor-pointer">
-              {/* Background Image */}
               <img 
                 src={cat.image} 
                 alt={cat.title} 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              
-              {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-              
-              {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-8">
                 <h4 className="text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{cat.title}</h4>
                 <p className="text-gray-300 text-sm mb-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
@@ -222,9 +225,8 @@ const Home: React.FC = () => {
       {/* About Us Parallax Section */}
       <div 
         className="relative py-32 bg-fixed bg-center bg-cover"
-        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=2070&auto=format&fit=crop")' }}
+        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1549271568-e87e07c5406b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")' }}
       >
-        {/* Dark Overlay with Blend Mode */}
         <div className="absolute inset-0 bg-navy-950/85 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/50" />
         
@@ -271,7 +273,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Signature Services (Renamed from Featured Services) */}
+      {/* Signature Services */}
       <Section>
         <div className="text-center mb-16">
           <h2 className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-4">Pricing</h2>
@@ -280,8 +282,8 @@ const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SERVICES.slice(0, 3).map((service) => (
-            <div key={service.id} className="group glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300">
-              <div className="h-48 overflow-hidden rounded-lg mb-6">
+            <div key={service.id} className="group glass-card p-8 rounded-xl hover:bg-white/5 transition-all duration-300 flex flex-col">
+              <div className="h-48 overflow-hidden rounded-lg mb-6 shrink-0">
                 <img 
                   src={service.image} 
                   alt={service.title} 
@@ -295,7 +297,7 @@ const Home: React.FC = () => {
                 </div>
                 <span className="text-2xl font-mono text-white">${service.price}</span>
               </div>
-              <p className="text-gray-400 text-sm mb-6">{service.description}</p>
+              <p className="text-gray-400 text-sm mb-6 flex-grow">{service.description}</p>
               <Link to="/booking" className="flex items-center gap-2 text-gold-500 hover:text-white transition-colors text-sm font-bold uppercase tracking-wide">
                 Book This <ArrowRight size={16} />
               </Link>
@@ -310,12 +312,11 @@ const Home: React.FC = () => {
         </div>
       </Section>
 
-      {/* Gallery Section - Infinite Scroll & Parallax */}
+      {/* Gallery Section */}
       <section className="relative py-32 bg-navy-900 overflow-hidden">
-        {/* Parallax Background */}
         <div 
           className="absolute inset-0 bg-fixed bg-cover bg-center z-0 opacity-10 pointer-events-none"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1599351431202-6e0c051cd708?q=80&w=1000&auto=format&fit=crop")' }}
+          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1599351431613-18ef1fdd27e1?q=80&w=388&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")' }}
         />
         
         <div className="relative z-10">
@@ -324,7 +325,6 @@ const Home: React.FC = () => {
             <h3 className="text-4xl font-display font-bold text-white">Masterpiece Gallery</h3>
           </div>
 
-          {/* Marquee Row 1 - Left */}
           <div className="flex mb-8 -rotate-1 scale-105">
              <motion.div 
                className="flex gap-6 min-w-max"
@@ -342,7 +342,6 @@ const Home: React.FC = () => {
              </motion.div>
           </div>
 
-          {/* Marquee Row 2 - Right */}
           <div className="flex rotate-1 scale-105">
              <motion.div 
                className="flex gap-6 min-w-max"
@@ -388,16 +387,14 @@ const Home: React.FC = () => {
                      <div className="w-1.5 h-1.5 bg-gold-500 rotate-45"></div>
                 </div>
                 
-                <div className="absolute top-1/2 -left-1.5 w-2 h-2 bg-gold-500 rotate-45 -translate-y-1/2"></div>
-                <div className="absolute top-1/2 -right-1.5 w-2 h-2 bg-gold-500 rotate-45 -translate-y-1/2"></div>
-                
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     
-                    {/* Image Side */}
-                    <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[500px]">
+                    {/* Image Side - Refined for mobile safety */}
+                    <div className="hidden lg:block lg:col-span-5 relative h-full min-h-[500px] overflow-hidden rounded">
                          <img 
+                            // Image: Barber portrait
                             src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?q=80&w=1000&auto=format&fit=crop"
-                            className="absolute bottom-[-50px] left-[-30px] w-[115%] max-w-none h-auto object-cover rounded shadow-2xl grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
+                            className="absolute bottom-0 left-0 w-full h-full object-cover rounded shadow-2xl grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
                             alt="Barber"
                         />
                     </div>
@@ -460,7 +457,7 @@ const Home: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full bg-gold-500 hover:bg-white text-navy-950 font-bold uppercase tracking-[0.2em] py-5 mt-4 transition-all duration-300">
+                            <button type="submit" className="w-full bg-gold-500 hover:bg-white text-navy-950 font-bold uppercase tracking-[0.2em] py-5 mt-4 transition-all duration-300 shadow-lg">
                                 Book Now
                             </button>
                         </form>
@@ -493,15 +490,16 @@ const Home: React.FC = () => {
                 ))}
               </div>
            </div>
-           <div className="h-[500px] w-full bg-navy-800 rounded-xl overflow-hidden relative">
+           <div className="h-[300px] lg:h-[500px] w-full bg-navy-800 rounded-xl overflow-hidden relative">
              {/* Placeholder for Map - Using an image for visual */}
              <img 
-                src="https://images.unsplash.com/photo-1524813686514-a5756c97759e?q=80&w=2070&auto=format&fit=crop"
+                // Image: Map/City
+                src="https://plus.unsplash.com/premium_photo-1712832299675-de3d282b904a?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 className="w-full h-full object-cover opacity-50 hover:opacity-75 transition-opacity duration-500"
                 alt="Map Background"
              />
              <div className="absolute inset-0 flex items-center justify-center">
-                <button className="bg-white text-navy-950 px-6 py-3 rounded font-bold hover:bg-gold-500 transition-colors">
+                <button className="bg-white text-navy-950 px-6 py-3 rounded font-bold hover:bg-gold-500 transition-colors shadow-lg">
                   Open in Google Maps
                 </button>
              </div>

@@ -5,14 +5,14 @@ const About: React.FC = () => {
   return (
     <div className="pt-20">
       <div className="bg-navy-900 py-20 px-6 text-center">
-        <h1 className="text-5xl font-display font-bold text-white mb-4">Our Story</h1>
+        <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Our Story</h1>
       </div>
 
       <Section>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-4">Since 2024</h2>
-            <h3 className="text-4xl font-display font-bold text-white mb-6">A New Standard in Grooming</h3>
+            <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">A New Standard in Grooming</h3>
             <p className="text-gray-400 leading-relaxed mb-6">
               Royale Barbers was founded with a singular mission: to bring back the lost art of the gentleman's barbershop while infusing it with modern luxury and precision. We are not just cutting hair; we are cultivating confidence.
             </p>
@@ -31,8 +31,10 @@ const About: React.FC = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-             <img src="https://images.unsplash.com/photo-1599351431202-6e0c051cd708?q=80&w=1000&auto=format&fit=crop" className="rounded-lg w-full h-64 object-cover translate-y-8" alt="Interior" />
-             <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=1000&auto=format&fit=crop" className="rounded-lg w-full h-64 object-cover" alt="Tools" />
+             {/* Image: Barber pole / shop */}
+             <img src="https://images.unsplash.com/photo-1599351431202-6e0c051cd708?q=80&w=1000&auto=format&fit=crop" className="rounded-lg w-full h-48 md:h-64 object-cover lg:translate-y-8" alt="Interior" />
+             {/* Image: Barber tools */}
+             <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=1000&auto=format&fit=crop" className="rounded-lg w-full h-48 md:h-64 object-cover" alt="Tools" />
           </div>
         </div>
       </Section>
