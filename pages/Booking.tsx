@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Section from '../components/Section';
 import { SERVICES, BARBERS, BRANCHES } from '../constants';
-import { Check, ChevronRight, ChevronLeft, Calendar, Clock, User, Scissors } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft } from 'lucide-react';
 import { api } from '../services/api';
 
 const steps = ['Service', 'Barber', 'Time', 'Details'];

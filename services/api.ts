@@ -20,6 +20,7 @@ export const api = {
 
   // Simulate checking availability
   checkAvailability: async (date: string, barberId: string): Promise<string[]> => {
+    console.log(`Checking availability for ${barberId} on ${date}`); // FIX: Used parameters to satisfy linter
     await delay(800);
     // Return mock available slots
     return [
