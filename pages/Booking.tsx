@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES, BARBERS, BRANCHES } from '../constants';
-import { Check, ChevronRight, ChevronLeft, Home } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft, Home, ArrowLeft } from 'lucide-react';
 import { api } from '../services/api';
 
 const steps = ['Service', 'Barber', 'Time', 'Details'];
@@ -25,14 +25,26 @@ const Booking: React.FC = () => {
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
-  const handleNext = () => {
+  const handleNext = (e?: React.MouseEvent | React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    // Safety check: Don't advance if on the last step
+    if (currentStep >= steps.length - 1) return;
+
     if (currentStep === 1) { // If moving to Time step
        fetchSlots();
     }
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
 
-  const handleBack = () => {
+  const handleBack = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
@@ -44,35 +56,40 @@ const Booking: React.FC = () => {
     setLoadingSlots(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
-    // CRITICAL FIX: Only submit if we are on the final 'Details' step
-    if (currentStep < steps.length - 1) {
-      handleNext();
+    // STRICT GUARD: Only proceed if on the final step AND details are filled
+    if (currentStep !== steps.length - 1) {
+      return; 
+    }
+
+    if (!formData.name || !formData.email || !formData.phone) {
+      alert("Please fill in all contact details.");
       return;
     }
 
-    // Validation for final step
-    if (!formData.name || !formData.email || !formData.phone) {
-      return; // Browser 'required' attribute will usually catch this, but double safety
-    }
-
     setIsSubmitting(true);
-    const result = await api.createBooking({
-      serviceId: formData.serviceId,
-      barberId: formData.barberId,
-      branchId: formData.branchId,
-      date: formData.date || new Date().toISOString().split('T')[0],
-      time: formData.time,
-      customerName: formData.name,
-      customerEmail: formData.email,
-      customerPhone: formData.phone
-    });
+    try {
+      const result = await api.createBooking({
+        serviceId: formData.serviceId,
+        barberId: formData.barberId,
+        branchId: formData.branchId,
+        date: formData.date || new Date().toISOString().split('T')[0],
+        time: formData.time,
+        customerName: formData.name,
+        customerEmail: formData.email,
+        customerPhone: formData.phone
+      });
 
-    setIsSubmitting(false);
-    if (result.success) {
-      setIsSuccess(true);
+      if (result.success) {
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.error("Booking failed", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -168,17 +185,17 @@ const Booking: React.FC = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-8">
-               <p className="text-gray-400 text-sm">You're almost there! Enter your details to finalize your appointment.</p>
+               <p className="text-gray-400 text-sm italic">"Precision is our signature. Detail is our promise."</p>
             </div>
             <div className="grid grid-cols-1 gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] uppercase tracking-[0.2em] text-gold-500 font-bold ml-1">Full Name</label>
                 <input 
                   type="text" 
-                  placeholder="e.g. Alexander Sterling"
+                  placeholder="Enter your name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors"
+                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-700"
                   required
                 />
               </div>
@@ -186,10 +203,10 @@ const Booking: React.FC = () => {
                 <label className="text-[10px] uppercase tracking-[0.2em] text-gold-500 font-bold ml-1">Email Address</label>
                 <input 
                   type="email" 
-                  placeholder="e.g. alex@example.com"
+                  placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors"
+                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-700"
                   required
                 />
               </div>
@@ -197,10 +214,10 @@ const Booking: React.FC = () => {
                 <label className="text-[10px] uppercase tracking-[0.2em] text-gold-500 font-bold ml-1">Phone Number</label>
                 <input 
                   type="tel" 
-                  placeholder="e.g. +1 (555) 000-0000"
+                  placeholder="Enter your phone"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors"
+                  className="w-full bg-navy-900 border border-white/10 rounded p-4 text-white focus:outline-none focus:border-gold-500 transition-colors placeholder-gray-700"
                   required
                 />
               </div>
@@ -218,13 +235,16 @@ const Booking: React.FC = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-card p-10 md:p-16 rounded-2xl text-center max-w-xl w-full border border-gold-500/30"
+          className="glass-card p-10 md:p-20 rounded-3xl text-center max-w-2xl w-full border border-gold-500/20 shadow-2xl relative overflow-hidden"
         >
+          {/* Decorative Corner */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 blur-3xl rounded-full"></div>
+          
           <div className="w-24 h-24 bg-gold-500/10 rounded-full flex items-center justify-center mx-auto mb-8 relative">
             <motion.div 
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: 'spring' }}
+              transition={{ delay: 0.2, type: 'spring', damping: 12 }}
               className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center"
             >
               <Check size={32} className="text-navy-950" strokeWidth={3} />
@@ -232,26 +252,28 @@ const Booking: React.FC = () => {
             <div className="absolute inset-0 rounded-full border border-gold-500 animate-ping opacity-20"></div>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Booking Confirmed</h2>
-          <div className="h-[1px] w-20 bg-gold-500 mx-auto mb-6"></div>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">Booking Confirmed</h2>
+          <div className="h-[2px] w-24 bg-gold-500 mx-auto mb-8"></div>
           
-          <p className="text-gray-400 mb-10 leading-relaxed">
-            Exquisite choice, <span className="text-white font-bold">{formData.name}</span>. Your chair is reserved for <span className="text-gold-500 font-bold">{formData.date}</span> at <span className="text-gold-500 font-bold">{formData.time}</span>. A confirmation has been dispatched to your email.
+          <p className="text-gray-400 mb-12 text-lg leading-relaxed">
+            Thank you, <span className="text-white font-bold">{formData.name}</span>. Your royal session is secured for <span className="text-gold-500 font-bold">{formData.date}</span> at <span className="text-gold-500 font-bold">{formData.time}</span>.
           </p>
           
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             <button 
               onClick={() => navigate('/')}
-              className="w-full bg-gold-500 text-navy-950 py-4 rounded font-bold uppercase tracking-widest text-sm hover:bg-white transition-all shadow-xl flex items-center justify-center gap-2 group"
+              className="w-full bg-gold-500 text-navy-950 py-5 rounded-xl font-bold uppercase tracking-[0.2em] text-sm hover:bg-white transition-all shadow-[0_10px_30px_rgba(201,161,91,0.2)] flex items-center justify-center gap-3 group"
             >
-              <Home size={18} className="group-hover:-translate-y-0.5 transition-transform" />
-              Return to Home
+              <Home size={20} className="group-hover:-translate-y-1 transition-transform" />
+              Return to Home Page
             </button>
+            
             <Link 
               to="/services"
-              className="text-gray-500 hover:text-gold-500 text-xs uppercase tracking-widest font-bold transition-colors"
+              className="flex items-center justify-center gap-2 text-gray-500 hover:text-gold-500 text-xs uppercase tracking-widest font-bold transition-colors group"
             >
-              Explore more services
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              Explore More Services
             </Link>
           </div>
         </motion.div>
@@ -273,7 +295,7 @@ const Booking: React.FC = () => {
           <h1 className="text-4xl md:text-6xl font-display font-bold text-white">Book Appointment</h1>
         </div>
 
-        <div className="glass-card rounded-2xl p-6 md:p-12 relative overflow-hidden">
+        <div className="glass-card rounded-2xl p-6 md:p-12 relative overflow-hidden border border-white/5">
           {/* Subtle Background pattern */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
 
@@ -282,11 +304,11 @@ const Booking: React.FC = () => {
              <div className="flex justify-between items-center relative">
                 <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -z-10 -translate-y-1/2"></div>
                 {steps.map((step, index) => (
-                  <div key={step} className="flex flex-col items-center gap-3 bg-navy-950 px-3 z-10 transition-all">
+                  <div key={step} className="flex flex-col items-center gap-3 bg-navy-950 px-3 z-10">
                     <div 
                       className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-500 ${
                         index <= currentStep 
-                          ? 'bg-gold-500 border-gold-500 text-navy-950 shadow-[0_0_15px_rgba(201,161,91,0.4)]' 
+                          ? 'bg-gold-500 border-gold-500 text-navy-950 shadow-[0_0_20px_rgba(201,161,91,0.3)]' 
                           : 'bg-navy-900 border-white/10 text-gray-600'
                       }`}
                     >
@@ -300,7 +322,7 @@ const Booking: React.FC = () => {
              </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFinalSubmit} className="relative z-10">
             <div className="min-h-[350px]">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -316,16 +338,17 @@ const Booking: React.FC = () => {
             </div>
 
             <div className="flex flex-col-reverse sm:flex-row justify-between mt-16 pt-8 border-t border-white/5 gap-6">
-              <button 
-                type="button"
-                onClick={handleBack}
-                disabled={currentStep === 0}
-                className={`flex items-center justify-center gap-2 px-8 py-4 rounded font-bold uppercase tracking-widest text-xs transition-all ${
-                  currentStep === 0 ? 'invisible' : 'text-gray-400 hover:text-white border border-white/10 hover:border-white'
-                }`}
-              >
-                <ChevronLeft size={16} /> Previous
-              </button>
+              {currentStep > 0 ? (
+                <button 
+                  type="button"
+                  onClick={handleBack}
+                  className="flex items-center justify-center gap-2 px-8 py-4 rounded font-bold uppercase tracking-widest text-xs transition-all text-gray-400 hover:text-white border border-white/10 hover:border-white"
+                >
+                  <ChevronLeft size={16} /> Previous Step
+                </button>
+              ) : (
+                <div className="hidden sm:block w-32"></div>
+              )}
               
               {currentStep === steps.length - 1 ? (
                 <button 
@@ -333,7 +356,7 @@ const Booking: React.FC = () => {
                   disabled={isSubmitting || !formData.phone || !formData.email || !formData.name}
                   className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gold-500 hover:bg-white text-navy-950 px-12 py-4 rounded font-bold uppercase tracking-[0.2em] text-xs transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Finalizing...' : 'Confirm Reservation'}
+                  {isSubmitting ? 'Processing...' : 'Complete Reservation'}
                 </button>
               ) : (
                 <button 
@@ -342,7 +365,7 @@ const Booking: React.FC = () => {
                   disabled={
                     (currentStep === 0 && !formData.serviceId) ||
                     (currentStep === 1 && !formData.barberId) ||
-                    (currentStep === 2 && !formData.time)
+                    (currentStep === 2 && (!formData.time || !formData.date))
                   }
                   className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white hover:bg-gold-500 text-navy-950 px-12 py-4 rounded font-bold uppercase tracking-[0.2em] text-xs transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed ml-auto"
                 >
